@@ -7,6 +7,7 @@ def display_score():
     score_surface = game_font.render(f'Score: {current_time}', False, (64,64,64)) #render takes three arguments: the text to display, whether you want anti-aliasing, and the color of the font
     score_rect = score_surface.get_rect(center = (400, 50))
     screen.blit(score_surface, score_rect)
+    return current_time
 
 pygame.init()
 screen = pygame.display.set_mode((800, 400))
@@ -14,6 +15,7 @@ pygame.display.set_caption('First Game')
 clock = pygame.time.Clock()
 game_active = False
 start_time = 0 # initialize the timer at zero 
+score = 0
 
 game_font = pygame.font.Font('font/Pixeltype.ttf', 50)
 
@@ -29,15 +31,14 @@ player_gravity = 0
 
 # Pre-Game Screen
 player_ready_surf = pygame.image.load('graphics/Player/player_stand.png').convert_alpha()
-player_ready_scaled = pygame.transform.scale(player_ready_surf, (150, 200))
-player_ready_rect = player_ready_scaled.get_rect(center = (400, 200))
-
+player_ready_surf = pygame.transform.rotozoom(player_ready_surf, 0, 2) # redefining player_ready_surf to be transformed at 0 degrees rotation and double the size
+player_ready_rect = player_ready_surf.get_rect(center = (400, 200))
 
 title_surf = game_font.render('Running Man', False, (64,64,64))
 title_rect = title_surf.get_rect(center = (400, 50))
 
 to_play_surf = game_font.render('Tap SPACEBAR to begin!', False, (64,64,64))
-to_play_rect = to_play_surf.get_rect(center = (400, 375))
+to_play_rect = to_play_surf.get_rect(center = (400, 350))
 
 while True:
     for event in pygame.event.get():
@@ -69,7 +70,7 @@ while True:
         # pygame.draw.rect(screen, '#c0e8ec', score_rect) # uses the draw() method to draw a shape, in this instance, a rectangle.
         # pygame.draw.rect(screen, '#c0e8ec', score_rect, 10) # duplicated the draw method to add some padding to the rectangle
         # screen.blit(score_surface, score_rect)
-        display_score()
+        score = display_score()
 
         player_gravity += 1
         player_rect.y += player_gravity
@@ -95,8 +96,11 @@ while True:
         #     print('jump')
     else:
         screen.fill((173, 216, 230))
-        screen.blit(player_ready_scaled, player_ready_rect)
+        screen.blit(player_ready_surf, player_ready_rect)
         screen.blit(title_surf, title_rect)
+        last_score_surf = game_font.render(f'Last Score: {score}', False, (64,64,64))
+        last_score_rect = last_score_surf.get_rect(center = (400, 100))
+        screen.blit(last_score_surf, last_score_rect)
         screen.blit(to_play_surf, to_play_rect)
 
 
