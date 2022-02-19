@@ -62,8 +62,8 @@ snail_frames = [snail_frame_1, snail_frame_2]
 snail_frame_index = 0
 snail_surf = snail_frames[snail_frame_index]
 
-fly_frame_1 = pygame.image.load('graphics/Fly/fly1.png').convert_alpha()
-fly_frame_2 = pygame.image.load('graphics/Fly/fly2.png').convert_alpha()
+fly_frame_1 = pygame.image.load('graphics/Fly/Fly1.png').convert_alpha()
+fly_frame_2 = pygame.image.load('graphics/Fly/Fly2.png').convert_alpha()
 fly_frames = [fly_frame_1, fly_frame_2]
 fly_frame_index = 0
 fly_surf = fly_frames[fly_frame_index]
@@ -128,7 +128,7 @@ while True:
                 snail_surf = snail_frames[snail_frame_index]
             
             if event.type == fly_animation_timer:
-                if fly_frame_index == 0: snail_frame_index = 1
+                if fly_frame_index == 0: fly_frame_index = 1
                 else: fly_frame_index = 0
                 fly_surf = fly_frames[fly_frame_index]
 
